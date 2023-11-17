@@ -1,0 +1,6 @@
+flask
+docker
+torch
+Pillow
+numpy
+torchvision

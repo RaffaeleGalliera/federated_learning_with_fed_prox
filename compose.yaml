@@ -1,0 +1,34 @@
+services:
+  client_1:
+    build:
+      context: app
+    runtime: "nvidia"
+    privileged: true
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT
+    ports:
+      - '8000:8000'
+
+  client_2:
+    build:
+      context: app
+    runtime: "nvidia"
+    privileged: true
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT
+    ports:
+      - '8800:8000'
+
+  server:
+    build:
+      context: app
+    runtime: "nvidia"
+    privileged: true
+    # flask requires SIGINT to stop gracefully
+    # (default stop signal from Compose is SIGTERM)
+    stop_signal: SIGINT
+    ports:
+      - '9000:8000'
+
