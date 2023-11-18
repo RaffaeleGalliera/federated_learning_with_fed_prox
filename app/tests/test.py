@@ -7,6 +7,8 @@ import torch
 from PIL import Image
 import matplotlib.pyplot as plt
 
+from app.utils.network import CNN
+
 random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
@@ -16,6 +18,7 @@ client_1_url = "http://localhost:9000"
 client_2_url = "http://localhost:8800"
 
 training_dir = 'dataset/trainingSet/trainingSet'
+
 
 
 # Set blank model
@@ -152,7 +155,7 @@ def test_fed_prox_train_worker_on_labels_list(labels_list, global_model, url):
     return response.json()['model']
 
 
-def test_fed_prox(model, url_1, url_2, url_3):
+def test_fed_prox(model=None, url_1=None, url_2=None, url_3=None):
     hex_model_3 = test_fed_prox_train_worker_on_labels_list(
         ['0', '1', '2', '3'],
         model,
@@ -235,20 +238,28 @@ if __name__ == "__main__":
             ['0', '1', '2', '3', '4'],
             client_1_url
         )
-        # assert accuracy > 80
 
         test_model_setter(hex_model, client_2_url)
         accuracy = test_validate_worker_on_labels_list(
             ['0', '1', '2', '3', '4'],
             client_2_url
         )
-        # assert accuracy > 80
 
         global_hex_model = hex_model
 
     assert accuracy > 80
 
+    test_infer('../dataset/evaluation', '3')
     test_infer_with_uncertainty('../dataset/evaluation', '3')
     study_uncertainty('../dataset/evaluation', '3')
     study_uncertainty('../dataset/evaluation', '5')
+
+    response = requests.post(
+        f"{server_url}/fed-prox-train-worker-on-labels-list",
+        json={
+            'directory': training_dir,
+            'labels_list': ['0']
+        }
+    )
+
 

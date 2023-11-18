@@ -2,8 +2,6 @@ services:
   client_1:
     build:
       context: app
-    runtime: "nvidia"
-    privileged: true
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
@@ -13,8 +11,6 @@ services:
   client_2:
     build:
       context: app
-    runtime: "nvidia"
-    privileged: true
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
@@ -24,8 +20,6 @@ services:
   server:
     build:
       context: app
-    runtime: "nvidia"
-    privileged: true
     # flask requires SIGINT to stop gracefully
     # (default stop signal from Compose is SIGTERM)
     stop_signal: SIGINT
