@@ -7,7 +7,7 @@ from flask import Flask, request, jsonify
 from torchvision import transforms
 import io
 from PIL import Image
-
+import copy
 from torch.utils.data import DataLoader, Dataset
 
 from utils.datasets import CustomDatasetWithLabelsList, CustomDataset
@@ -134,7 +134,8 @@ def fed_prox_train_worker_directory_on_labels_list():
     global_model = request.json.get('global_model', None)
 
     if global_model is None:
-        global_model = app.model.state_dict()
+        global_model = copy.deepcopy(app.model)
+        global_model = global_model.state_dict()
     else:
         global_model = torch.load(io.BytesIO(bytes.fromhex(global_model)))
 
