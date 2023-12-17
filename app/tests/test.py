@@ -6,8 +6,9 @@ import numpy as np
 import torch
 from PIL import Image
 import matplotlib.pyplot as plt
-
 from app.utils.network import CNN
+import hashlib
+import sys
 
 random.seed(0)
 np.random.seed(0)
@@ -18,7 +19,6 @@ client_1_url = "http://localhost:9000"
 client_2_url = "http://localhost:8800"
 
 training_dir = 'dataset/trainingSet/trainingSet'
-
 
 
 # Set blank model
@@ -147,7 +147,6 @@ def test_fed_prox_train_worker_on_labels_list(labels_list, global_model, url):
         json={
             'directory': training_dir,
             'labels_list': labels_list,
-            'global_model': global_model
         }
     )
 
@@ -161,11 +160,16 @@ def test_fed_prox(model=None, url_1=None, url_2=None, url_3=None):
         model,
         url_2
     )
+    print(f'Hex model 3 round {i + 1}')
+    print(hashlib.sha3_256(hex_model_3.encode('UTF-8')).hexdigest())
+
     hex_model_4 = test_fed_prox_train_worker_on_labels_list(
         ['0', '1', '2', '4'],
         model,
         url_3
     )
+    print(f'Hex model 4 round {i + 1}')
+    print(hashlib.sha3_256(hex_model_4.encode('UTF-8')).hexdigest())
 
     mock_model_data = {
         'models': [hex_model_3, hex_model_4],
@@ -192,7 +196,9 @@ if __name__ == "__main__":
     assert accuracy > 80
 
     global_hex_model = test_model_getter(server_url)
-
+    print(f'Global Model')
+    print(hashlib.sha3_256(global_hex_model.encode('UTF-8')).hexdigest())
+    print(f'Size of model in bytes: {sys.getsizeof(global_hex_model)}')
     test_model_setter(global_hex_model, client_1_url)
 
     client_accuracy = test_validate_worker_on_labels_list(
@@ -231,7 +237,9 @@ if __name__ == "__main__":
             client_1_url,
             client_2_url
         )
-        test_model_setter(hex_model, server_url)
+        print(f'Hex model round {i + 1}')
+        print(hashlib.sha3_256(hex_model.encode('UTF-8')).hexdigest())
+        print(f'Size of model in bytes: {sys.getsizeof(hex_model)}')
 
         test_model_setter(hex_model, client_1_url)
         accuracy = test_validate_worker_on_labels_list(
@@ -250,16 +258,6 @@ if __name__ == "__main__":
     assert accuracy > 80
 
     test_infer('../dataset/evaluation', '3')
-    test_infer_with_uncertainty('../dataset/evaluation', '3')
-    study_uncertainty('../dataset/evaluation', '3')
-    study_uncertainty('../dataset/evaluation', '5')
 
-    response = requests.post(
-        f"{server_url}/fed-prox-train-worker-on-labels-list",
-        json={
-            'directory': training_dir,
-            'labels_list': ['0']
-        }
-    )
 
 
