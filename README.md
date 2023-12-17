@@ -1,7 +1,8 @@
 # Federated Learning with Fed Prox
 
-This project contains a simple implementation of Federated Learning using the Fed Prox algorithm and MNIST as dataset.
-I have built this project to learn more about Federated Learning and some hands-on experience with it! 
+This project contains a simple example of Federated Learning using the Fed Prox algorithm and MNIST as dataset.
+I have built this project to learn more about Federated Learning and have some hands-on experience with it! 
+It is still primitive and far from being a complete, production-ready implementation of a Federate Learning service, but it can be still used as a starting point to play with it! :)
 
 Different equally-tiered containers can be launched, and they can either serve as a Server/HQ or a Client. 
 Each container will run a Flask server and a series of routes will be exposed to allow the federation process to be managed by a third application.
