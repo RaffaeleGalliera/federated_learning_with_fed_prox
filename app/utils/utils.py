@@ -12,6 +12,7 @@ random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
 
+
 def model_to_hex(model):
     buffer = io.BytesIO()
     torch.save(model.state_dict(), buffer)
@@ -136,11 +137,6 @@ def run_monte_carlo(image, model, num_passes=100):
 
 
 def federated_average(models_state_dict, weights):
-    """
-    Implement the FedAvg algorithm.
-    models: dict of serialized models
-    weights: list of model weights (number of samples each worker trained on)
-    """
     total_weight = sum(weights)
     avg_state_dict = CNN().state_dict()
 
@@ -150,4 +146,3 @@ def federated_average(models_state_dict, weights):
             zip(models_state_dict, weights)) / total_weight
 
     return avg_state_dict
-

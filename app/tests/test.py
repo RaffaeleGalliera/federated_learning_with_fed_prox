@@ -10,10 +10,13 @@ from app.utils.network import CNN
 import hashlib
 import sys
 
+from app.utils.utils import save_and_load_hex_model
+
 random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
 
+# Here you need to set the server url and the client urls
 server_url = "http://localhost:8000"
 client_1_url = "http://localhost:9000"
 client_2_url = "http://localhost:8800"

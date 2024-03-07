@@ -10,6 +10,7 @@ random.seed(0)
 np.random.seed(0)
 torch.manual_seed(0)
 
+
 class CustomDataset(Dataset):
     def __init__(self, directory, transform=None):
         self.directory = directory
@@ -24,8 +25,8 @@ class CustomDataset(Dataset):
 
     def __getitem__(self, idx):
         image_path = self.images[idx]
-        image = Image.open(image_path).convert('L')  # Convert to grayscale
-        label = self._get_label(image_path)  # Implement this method based on your labeling strategy
+        image = Image.open(image_path).convert('L')
+        label = self._get_label(image_path)
 
         if self.transform:
             image = self.transform(image)
