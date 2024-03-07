@@ -261,6 +261,3 @@ if __name__ == "__main__":
     assert accuracy > 80
 
     test_infer('../dataset/evaluation', '3')
-
-
-
