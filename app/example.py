@@ -185,7 +185,6 @@ def test_fed_prox(model=None, url_1=None, url_2=None, url_3=None):
 
 def test_model_getter(url):
     response = requests.get(f"{url}/get-model")
-    print("Model Setter Test:", response.json())
     return response.json()['model']
 
 
@@ -199,7 +198,7 @@ if __name__ == "__main__":
 
     global_hex_model = test_model_getter(server_url)
     print(f'Global Model')
-    print(hashlib.sha3_256(global_hex_model.encode('UTF-8')).hexdigest())
+    print(f'Hashed model: {hashlib.sha3_256(global_hex_model.encode("UTF-8")).hexdigest()}')
     print(f'Size of model in bytes: {sys.getsizeof(global_hex_model)}')
     test_model_setter(global_hex_model, client_1_url)
 
