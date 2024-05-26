@@ -6,11 +6,10 @@ import numpy as np
 import torch
 from PIL import Image
 import matplotlib.pyplot as plt
-from app.utils.network import CNN
+from utils.network import CNN
 import hashlib
 import sys
-
-from app.utils.utils import save_and_load_hex_model
+from utils.utils import save_and_load_hex_model
 
 random.seed(0)
 np.random.seed(0)
@@ -260,4 +259,4 @@ if __name__ == "__main__":
 
     assert accuracy > 80
 
-    test_infer('../dataset/evaluation', '3')
+    test_infer('dataset/evaluation', '3')

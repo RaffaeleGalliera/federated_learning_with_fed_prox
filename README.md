@@ -8,7 +8,7 @@ Different equally-tiered containers can be launched, and they can either serve a
 Each container will run a Flask server and a series of routes will be exposed to allow the federation process to be managed by a third application.
 
 A Dockerfile is provided to build an image supporting the application and the `compose.yaml` allows to run 3 containers locally.
-`test.py` implements an example of workflow for the federated learning process. 
+`example.py` implements an example of workflow for the federated learning process. 
 
 
 ### Project Structure
@@ -17,8 +17,7 @@ The project is structured as follows:
 
 - `app/`: This directory contains the main application code.
   - `main.py`: This is the main application file. It contains the Flask server and the routes for the application.
-  - `tests/`: This directory contains the test files for the application.
-    - `test.py`: This is the main test file. It contains various tests for the application.
+  - `example.py`: This file contains an example of a federated learning process.
   - `utils/`: This directory contains utility files for the application.
 - `compose.yaml`: This is the Docker Compose file for the application. It defines the services that make up the application.
 
